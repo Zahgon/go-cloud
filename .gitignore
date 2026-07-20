@@ -80,3 +80,6 @@ Session.vim
 
 # runtimevar/etcdvar tests create this directory.
 runtimevar/etcdvar/default.etcd
+
+.aider*
+logs/
