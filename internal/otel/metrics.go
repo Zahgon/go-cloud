@@ -17,11 +17,12 @@ package otel
 
 import (
 	"fmt"
+	"strings"
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/metric"
 	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
-	"strings"
 )
 
 // Units are encoded according to the case-sensitive abbreviations from the
