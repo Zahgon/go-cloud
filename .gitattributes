@@ -6,3 +6,4 @@ samples/order/testdata/* -text
 **/testdata/**/*.replay  linguist-generated=true
 *.replay binary
 
+spec.pdf.bz2 binary
