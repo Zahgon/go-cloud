@@ -16,9 +16,10 @@ package oteltest
 
 import (
 	"fmt"
-	"go.opentelemetry.io/otel/codes"
 	"sort"
 	"strings"
+
+	"go.opentelemetry.io/otel/codes"
 
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"

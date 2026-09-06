@@ -1,31 +1,15 @@
-// Copyright 2019 The Go Cloud Development Kit Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// Command server runs a simple HTTP server with integrated Cloud Trace (OpenTelemetry)
-// and health checks.
 package main
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
-	"go.opentelemetry.io/otel"
 	"log"
 	"net/http"
 	"sync"
 	"time"
+
+	"go.opentelemetry.io/otel"
 
 	"gocloud.dev/gcp"
 	"gocloud.dev/server"
@@ -33,42 +17,25 @@ import (
 	"gocloud.dev/server/sdserver"
 )
 
-// GlobalMonitoredResource implements monitoredresource.Interface to provide a
-// basic global resource based on the project ID. If you're running this sample
-// on GCE or EC2, you may prefer to use monitoredresource.Autodetect() instead.
 type GlobalMonitoredResource struct {
 	projectID string
 }
 
-// MonitoredResource returned the monitored resource.
 func (g GlobalMonitoredResource) MonitoredResource() (string, map[string]string) {
-	return "global", map[string]string{"project_id": g.projectID}
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
-func helloHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello\n")
-}
+func helloHandler(w http.ResponseWriter, req *http.Request) { _ = "STUB: not implemented"; return }
 
-func mainHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Welcome to the home page!\n")
-}
+func mainHandler(w http.ResponseWriter, req *http.Request) { _ = "STUB: not implemented"; return }
 
-// customHealthCheck is an example health check. It implements the
-// health.Checker interface and reports the server is healthy when the healthy
-// field is set to true.
 type customHealthCheck struct {
 	mu      sync.RWMutex
 	healthy bool
 }
 
-func (h *customHealthCheck) CheckHealth() error {
-	h.mu.RLock()
-	defer h.mu.RUnlock()
-	if !h.healthy {
-		return errors.New("not ready yet")
-	}
-	return nil
-}
+func (h *customHealthCheck) CheckHealth() error { _ = "STUB: not implemented"; return nil }
 
 func main() {
 	addr := flag.String("listen", ":8080", "HTTP port to listen on")
@@ -118,9 +85,6 @@ func main() {
 	mux.HandleFunc("/hello", helloHandler)
 	mux.HandleFunc("/", mainHandler)
 
-	// healthCheck will report the server is unhealthy for 10 seconds after
-	// startup, and as healthy henceforth. Check the /healthz/readiness
-	// HTTP path to see readiness.
 	healthCheck := new(customHealthCheck)
 	time.AfterFunc(10*time.Second, func() {
 		healthCheck.mu.Lock()
